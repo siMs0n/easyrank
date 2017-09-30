@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const Player = require('./api/models/Player');
+const Match = require('./api/models/Match');
 
 const routes = require('./api/routes/routes');
 routes(app);

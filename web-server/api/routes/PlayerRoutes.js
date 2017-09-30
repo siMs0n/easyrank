@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(app) {
-    const playerController = require('../controllers/playerController');
+    const playerController = require('../controllers/PlayerController');
 
     app.route('/api/players')
         .get(playerController.getPlayers)
