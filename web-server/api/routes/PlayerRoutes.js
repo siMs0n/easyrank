@@ -2,7 +2,7 @@
 module.exports = function(app) {
     const playerController = require('../controllers/playerController');
 
-    app.route('/players')
+    app.route('/api/players')
         .get(playerController.getPlayers)
         .post(playerController.createPlayer);
 

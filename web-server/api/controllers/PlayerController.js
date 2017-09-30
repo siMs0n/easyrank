@@ -12,7 +12,9 @@ exports.getPlayers = function(req, res) {
 };
 
 exports.createPlayer = function(req, res) {
-    const player = new Player(req.body);
+    const name = req.body.name;
+    const rank = 1000;
+    const player = new Player({name: name, rank: rank});
     player.save(function(err, player) {
         if (err)
             res.send(err);

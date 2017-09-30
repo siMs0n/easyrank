@@ -11,9 +11,9 @@ mongoose.connect('mongodb://localhost/EasyRank');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const Player = require('./api/models/PlayerModel');
+const Player = require('./api/models/Player');
 
-const routes = require('./api/routes/PlayerRoutes'); //TODO: require routes file with all routes in it
+const routes = require('./api/routes/routes');
 routes(app);
 
 app.listen(8000, function () {
