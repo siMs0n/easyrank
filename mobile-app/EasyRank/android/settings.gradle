@@ -1,0 +1,3 @@
+rootProject.name = 'EasyRank'
+
+include ':app'
