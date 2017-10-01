@@ -4,11 +4,11 @@ const Schema = mongoose.Schema;
 
 const MatchSchema = new Schema({
     winner: {
-        player: [{ type: Schema.Types.ObjectId, ref: 'Players' }],
+        player: { type: Schema.Types.ObjectId, ref: 'Players' },
         score: Number
     },
     loser: {
-        player: [{ type: Schema.Types.ObjectId, ref: 'Players' }],
+        player: { type: Schema.Types.ObjectId, ref: 'Players' },
         score: Number
     }
 });
