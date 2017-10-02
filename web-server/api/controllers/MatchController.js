@@ -4,10 +4,13 @@ const mongoose = require('mongoose');
 const Match = mongoose.model('Matches');
 
 exports.getMatches = function(req, res) {
-    Match.find({}, function(err, match) {
+    Match.find({}, function(err, matches) {
         if (err)
             res.send(err);
-        res.json(match);
+        Match.populate(matches, [{path: 'winner.player'}, {path: 'loser.player'}])
+          .then((matchesWithPlayers) => {
+            res.json(matchesWithPlayers);
+          });
     });
 };
 
