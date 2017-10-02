@@ -5,7 +5,7 @@ import {getPlayers} from "../../backendService";
 
 export default class Leaderboard extends Component {
   static navigationOptions = {
-    title: 'Leaderboard'
+    tabBarLabel: 'Leaderboard'
   };
 
   constructor(props) {

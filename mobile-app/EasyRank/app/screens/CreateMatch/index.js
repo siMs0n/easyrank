@@ -6,7 +6,7 @@ import {getPlayers, postMatch} from "../../backendService";
 
 export default class CreateMatch extends Component {
   static navigationOptions = {
-    title: 'Create a match'
+    tabBarLabel: 'Create match'
   };
   constructor(props){
     super(props);

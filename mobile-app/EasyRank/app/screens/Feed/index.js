@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import _ from 'lodash';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import {getMatches} from "../../backendService";
 
 export default class Feed extends Component {
   static navigationOptions = {
-    title: 'The last matches'
+    tabBarLabel: 'Feed'
   };
 
   constructor(props) {
