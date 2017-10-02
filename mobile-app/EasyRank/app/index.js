@@ -1,10 +1,12 @@
 import React from 'react';
 import {StackNavigator} from 'react-navigation';
-import Home from './components/Home';
-import CreateMatch from './components/CreateMatch';
+import Feed from './screens/Feed';
+import Leaderboard from './screens/Leaderboard';
+import CreateMatch from './screens/CreateMatch';
 
 const EasyRank = StackNavigator({
-  Home: { screen: Home },
+  Feed: { screen: Feed },
+  Leaderboard: { screen: Leaderboard },
   MatchForm: { screen: CreateMatch }
 });
 

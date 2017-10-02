@@ -3,9 +3,9 @@ import _ from 'lodash';
 import {Button, StyleSheet, Text, View} from 'react-native';
 import {getPlayers} from "../../backendService";
 
-export default class Home extends Component {
+export default class Leaderboard extends Component {
   static navigationOptions = {
-    title: 'The last matches'
+    title: 'Leaderboard'
   };
 
   constructor(props) {

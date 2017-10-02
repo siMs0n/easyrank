@@ -10,6 +10,12 @@ export const getPlayers = () => {
   });
 };
 
+export const getMatches = () => {
+  return server.get('/api/matches').then((response) => {
+    return response.data;
+  });
+};
+
 export const postMatch = (winner, loser) => {
   return server.post('/api/matches', {winner, loser}).then((response) => {
     return response.data;
