@@ -24,7 +24,7 @@ const EasyRank = TabNavigator({
           barBackgroundColor: '#00796B'
         },
         Leaderboard: {
-          barBackgroundColor: '##00796B'
+          barBackgroundColor: '#00796B'
         }
       }
     }

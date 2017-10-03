@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import _ from 'lodash';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, FlatList} from 'react-native';
 import {getMatches} from "../../backendService";
+import Match from '../../components/Match';
 
 export default class Feed extends Component {
   static navigationOptions = {
@@ -15,16 +16,8 @@ export default class Feed extends Component {
 
   componentDidMount() {
     getMatches().then((matches) => {
-      this.setState({matches});
-    })
-      .catch((err) =>{
-        console.log(err);
-      })
-  }
-
-  componentWillUpdate() {
-    getMatches().then((matches) => {
-      this.setState({matches});
+      const sortedMatches = _.orderBy(matches, 'createdAt', 'desc');
+      this.setState({matches: sortedMatches});
     })
       .catch((err) =>{
         console.log(err);
@@ -32,22 +25,35 @@ export default class Feed extends Component {
   }
 
   render() {
-    const { navigate } = this.props.navigation;
     return (
-      <View>
-        <Text style={styles.welcome}>
-          Hello there !
-          Here are the matches : { _.map(this.state.matches, (match) => match.winner.player.name + ' won against ' + match.loser.player.name + '\n') }
-        </Text>
+      <View style={ styles.container }>
+        <View style={ styles.titleBar }>
+          <Text style={ styles.title }>Feed</Text>
+        </View>
+        <FlatList
+          data={this.state.matches}
+          renderItem={({item}) => <Match key={item._id} match={item} />}
+        />
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  titleBar: {
+    backgroundColor: '#00796B',
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderColor: '#666',
+    elevation: 1
+  },
+  title: {
+    fontSize: 30,
+    marginLeft: 32,
+    color: 'white'
+  },
+  container: {
+    backgroundColor: 'white',
+    flex: 1
   }
 });

@@ -28,7 +28,7 @@ export default class CreateMatch extends Component {
   };
 
   render() {
-    const pickerPlayerItems = _.map(this.state.players, (player) => <Picker.Item key={ player.id } label={ player.name } value={ player._id } />);
+    const pickerPlayerItems = _.map(this.state.players, (player) => <Picker.Item key={ player._id } label={ player.name } value={ player._id } />);
     return (
       <View>
         <Text>Pick the winner and his score</Text>
