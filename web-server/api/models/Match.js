@@ -11,6 +11,6 @@ const MatchSchema = new Schema({
         player: { type: Schema.Types.ObjectId, ref: 'Players' },
         score: Number
     }
-});
+}, {timestamps: true});
 
 module.exports = mongoose.model('Matches', MatchSchema);
