@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import _ from 'lodash';
 import {Button, Picker, Text, TextInput, View} from 'react-native';
-import {StackNavigator} from 'react-navigation';
-import {getPlayers, postMatch} from "../../backendService";
 
 export default class CreateMatch extends Component {
   static navigationOptions = {
@@ -13,22 +11,15 @@ export default class CreateMatch extends Component {
     this.state = {}
   }
 
-  componentDidMount() {
-    getPlayers().then((players) => {
-      this.setState({players});
-    })
-      .catch((err) =>{
-        console.log(err);
-      })
-  }
-
   handleSubmit = () => {
     const {winner, loser} =  this.state;
-    postMatch(winner, loser).then(this.props.navigation.navigate('Home'));
+    this.props.screenProps.postMatch(winner, loser);
   };
 
   render() {
-    const pickerPlayerItems = _.map(this.state.players, (player) => <Picker.Item key={ player._id } label={ player.name } value={ player._id } />);
+    const players = this.props.screenProps.players;
+
+    const pickerPlayerItems = _.map(players, (player) => <Picker.Item key={ player._id } label={ player.name } value={ player._id } />);
     return (
       <View>
         <Text>Pick the winner and his score</Text>
