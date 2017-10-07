@@ -2,14 +2,25 @@ import React, {Component} from 'react';
 import _ from 'lodash';
 import {StyleSheet, Text, View, FlatList} from 'react-native';
 import Match from '../../components/Match';
+import CreateMatchModal from '../../components/CreateMatchModal';
+import ActionButton from 'react-native-action-button';
 
 export default class Feed extends Component {
   static navigationOptions = {
     tabBarLabel: 'Feed'
   };
 
+  constructor(props){
+    super(props);
+    this.state = {modalVisible: false}
+  }
+
+  toggleCreateMatchModal = () => {
+    this.setState({modalVisible: !this.state.modalVisible})
+  };
+
   render() {
-    const matches = this.props.screenProps.matches;
+    const {matches, players, postMatch} = this.props.screenProps;
     const sortedMatches = _.orderBy(matches, 'createdAt', 'desc');
 
     return (
@@ -21,6 +32,10 @@ export default class Feed extends Component {
           data={sortedMatches}
           renderItem={({item}) => <Match key={item._id} match={item} />}
         />
+        <ActionButton buttonColor="#00E676" onPress={this.toggleCreateMatchModal}>
+          <Text style={ styles.plus }>+</Text>
+        </ActionButton>
+        <CreateMatchModal visible={this.state.modalVisible} players={players} postMatch={postMatch} onClose={this.toggleCreateMatchModal}/>
       </View>
     )
   }
@@ -28,7 +43,7 @@ export default class Feed extends Component {
 
 const styles = StyleSheet.create({
   titleBar: {
-    backgroundColor: '#00796B',
+    backgroundColor: '#03A9F4',
     paddingVertical: 10,
     borderBottomWidth: 1,
     borderColor: '#666',
@@ -42,5 +57,27 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     flex: 1
+  },
+  fab: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#00E676',
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  plus: {
+    fontSize: 30,
+    color: "white",
+    marginBottom: 3
   }
 });
+
+/*
+<View style={ styles.fab } onPress={ () => this.props.navigation.navigate('MatchForm') }>
+            <Text style={ styles.plus }>+</Text>
+          </View>
+ */

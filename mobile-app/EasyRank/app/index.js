@@ -2,13 +2,11 @@ import React from 'react';
 import {TabNavigator} from 'react-navigation';
 import Feed from './screens/Feed';
 import Leaderboard from './screens/Leaderboard';
-import CreateMatch from './screens/CreateMatch';
 import { NavigationComponent } from 'react-native-material-bottom-navigation'
 import {getMatches, getPlayers, postMatch} from "./backendService";
 
 const AppNavigation = TabNavigator({
   Feed: { screen: Feed },
-  MatchForm: { screen: CreateMatch },
   Leaderboard: { screen: Leaderboard }
 }, {
   tabBarComponent: NavigationComponent,
@@ -19,13 +17,10 @@ const AppNavigation = TabNavigator({
       rippleColor: 'white',
       tabs: {
         Feed: {
-          barBackgroundColor: '#00796B'
-        },
-        MatchForm: {
-          barBackgroundColor: '#00796B'
+          barBackgroundColor: '#03A9F4'
         },
         Leaderboard: {
-          barBackgroundColor: '#00796B'
+          barBackgroundColor: '#03A9F4'
         }
       }
     }
@@ -59,11 +54,11 @@ export default class EasyRank extends React.Component {
           console.log(err);
         });
     })
-  }
+  };
 
   render() {
     return(
-      <AppNavigation screenProps={ {matches: this.state.matches, players: this.state.players, postMatch: this.createMatch}} />
+      <AppNavigation screenProps={ {matches: this.state.matches, players: this.state.players, postMatch: this.createMatch.bind(this)}} />
     );
   }
 };
