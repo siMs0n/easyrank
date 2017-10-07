@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import _ from 'lodash';
-import {StyleSheet, Text, View, FlatList} from 'react-native';
+import {StyleSheet, Text, View, FlatList, Image} from 'react-native';
 import Match from '../../components/Match';
 import CreateMatchModal from '../../components/CreateMatchModal';
 import ActionButton from 'react-native-action-button';
 
 export default class Feed extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Feed'
+    tabBarLabel: 'Feed',
+    tabBarIcon: () => <Image source={require('../../assets/images/menu.png')} style={ styles.tabIcon } />
   };
 
   constructor(props){
@@ -45,8 +46,6 @@ const styles = StyleSheet.create({
   titleBar: {
     backgroundColor: '#03A9F4',
     paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderColor: '#666',
     elevation: 1
   },
   title: {
@@ -73,11 +72,9 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: "white",
     marginBottom: 3
+  },
+  tabIcon: {
+    width: 24,
+    height: 24
   }
 });
-
-/*
-<View style={ styles.fab } onPress={ () => this.props.navigation.navigate('MatchForm') }>
-            <Text style={ styles.plus }>+</Text>
-          </View>
- */

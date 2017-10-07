@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import _ from 'lodash';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {Button, StyleSheet, Text, View, Image} from 'react-native';
 
 export default class Leaderboard extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Leaderboard'
+    tabBarLabel: 'Leaderboard',
+    tabBarIcon: () => <Image source={require('../../assets/images/podium.png')} style={ styles.tabIcon } />
   };
 
   render() {
@@ -33,5 +34,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+  },
+  tabIcon: {
+    width: 24,
+    height: 24
   }
 });
