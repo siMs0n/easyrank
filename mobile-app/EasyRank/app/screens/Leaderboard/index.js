@@ -13,7 +13,6 @@ export default class Leaderboard extends Component {
   };
 
   render() {
-    console.log(this.props.screenProps);
     const players = orderBy(this.props.screenProps.players, 'rank', 'desc');
     const podiumPlayers = take(players, 3);
 
@@ -24,9 +23,9 @@ export default class Leaderboard extends Component {
             Leaderboard
           </Text>
           <View style={styles.podium}>
-            <LeaderboardPodium second player={ podiumPlayers[1] } />
-            <LeaderboardPodium first player={ podiumPlayers[0] } />
-            <LeaderboardPodium third player={ podiumPlayers[2] } />
+            { podiumPlayers[1] ? <LeaderboardPodium second player={ podiumPlayers[1] } /> : null }
+            { podiumPlayers[0] ? <LeaderboardPodium first player={ podiumPlayers[0] } /> : null }
+            { podiumPlayers[2] ? <LeaderboardPodium third player={ podiumPlayers[2] } /> : null }
           </View>
         </LinearGradient>
         <FlatList

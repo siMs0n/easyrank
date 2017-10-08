@@ -42,7 +42,7 @@ export default class EasyRank extends React.Component {
     this.state = {matches: [], players: []}
   }
 
-  componentDidMount() {
+  componentWillMount() {
     Promise.all([getMatches(), getPlayers()])
       .then(([matches, players]) => {
         this.setState({matches, players})
