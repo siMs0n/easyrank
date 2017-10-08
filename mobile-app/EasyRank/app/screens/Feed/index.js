@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import _ from 'lodash';
-import {StyleSheet, Text, View, FlatList, Image} from 'react-native';
+import {StyleSheet, Text, View, FlatList} from 'react-native';
 import Match from '../../components/Match';
-import CreateMatchModal from '../../components/CreateMatchModal';
 import ActionButton from 'react-native-action-button';
 
 export default class Feed extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Feed',
-    tabBarIcon: () => <Image source={require('../../assets/images/menu.png')} style={ styles.tabIcon } />
+    title: 'Feed'
   };
 
   constructor(props){
@@ -16,43 +14,25 @@ export default class Feed extends Component {
     this.state = {modalVisible: false}
   }
 
-  toggleCreateMatchModal = () => {
-    this.setState({modalVisible: !this.state.modalVisible})
-  };
-
   render() {
-    const {matches, players, postMatch} = this.props.screenProps;
+    const matches = this.props.screenProps.matches;
     const sortedMatches = _.orderBy(matches, 'createdAt', 'desc');
 
     return (
       <View style={ styles.container }>
-        <View style={ styles.titleBar }>
-          <Text style={ styles.title }>Feed</Text>
-        </View>
         <FlatList
           data={sortedMatches}
           renderItem={({item}) => <Match key={item._id} match={item} />}
         />
-        <ActionButton buttonColor="#00E676" onPress={this.toggleCreateMatchModal}>
+        <ActionButton buttonColor="#00E676" onPress={() => this.props.navigation.navigate('CreateMatch')}>
           <Text style={ styles.plus }>+</Text>
         </ActionButton>
-        <CreateMatchModal visible={this.state.modalVisible} players={players} postMatch={postMatch} onClose={this.toggleCreateMatchModal}/>
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  titleBar: {
-    backgroundColor: '#03A9F4',
-    paddingVertical: 10,
-    elevation: 1
-  },
-  title: {
-    fontSize: 30,
-    marginLeft: 32,
-    color: 'white'
-  },
   container: {
     backgroundColor: 'white',
     flex: 1
