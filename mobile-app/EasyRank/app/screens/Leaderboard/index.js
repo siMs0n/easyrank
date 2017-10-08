@@ -1,28 +1,37 @@
 import React, {Component} from 'react';
-import _ from 'lodash';
-import {Button, StyleSheet, Text, View, Image} from 'react-native';
+import {orderBy, take, slice} from 'lodash';
+import {StyleSheet, Text, View, Image, FlatList} from 'react-native';
+import LeaderboardPodium from '../../components/LeaderboardPodium';
+import LinearGradient from 'react-native-linear-gradient';
+import LeaderboardItem from '../../components/LeaderboardItem/index';
+const podiumImg = require('../../assets/images/podium.png');
 
 export default class Leaderboard extends Component {
   static navigationOptions = {
     tabBarLabel: 'Leaderboard',
-    tabBarIcon: () => <Image source={require('../../assets/images/podium.png')} style={ styles.tabIcon } />
+    tabBarIcon: () => <Image source={ podiumImg } style={ styles.tabIcon } />
   };
 
   render() {
-    const { navigate } = this.props.navigation;
-    console.log(this.props.screenProps)
-    const players = this.props.screenProps.players;
+    console.log(this.props.screenProps);
+    const players = orderBy(this.props.screenProps.players, 'rank', 'desc');
+    const podiumPlayers = take(players, 3);
+
     return (
       <View>
-        <Text style={styles.welcome}>
-          Hello there !
-          Here are the players : { _.map(players, (player) => player.name + ': ' + player.rank + '\n') }
-        </Text>
-        <Button
-          title="Create a new match"
-          onPress={() =>
-            navigate('MatchForm')
-          }
+        <LinearGradient colors={['#5794D5', '#596FB2', '#537CC3']} style={styles.titleBar}>
+          <Text style={styles.welcome}>
+            Leaderboard
+          </Text>
+          <View style={styles.podium}>
+            <LeaderboardPodium second player={ podiumPlayers[1] } />
+            <LeaderboardPodium first player={ podiumPlayers[0] } />
+            <LeaderboardPodium third player={ podiumPlayers[2] } />
+          </View>
+        </LinearGradient>
+        <FlatList
+          data={ slice(players, 3) }
+          renderItem={({item, index}) => <LeaderboardItem key={item._id} player={ item } place={ index + 4 } />}
         />
       </View>
     )
@@ -30,13 +39,27 @@ export default class Leaderboard extends Component {
 }
 
 const styles = StyleSheet.create({
+  titleBar: {
+    paddingVertical: 10,
+    elevation: 1,
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: 16
+  },
   welcome: {
-    fontSize: 20,
-    textAlign: 'center',
+    color: '#FFFFFF',
+    fontSize: 30,
     margin: 10,
+    backgroundColor: 'transparent',
   },
   tabIcon: {
     width: 24,
     height: 24
+  },
+  podium: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around'
   }
 });
