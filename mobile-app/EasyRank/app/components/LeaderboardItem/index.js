@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
+import {playerNameToAvatarImageSource} from "../../models/players";
+import {round} from 'lodash';
 
 export default class LeaderboardItem extends Component {
   render() {
@@ -10,10 +12,10 @@ export default class LeaderboardItem extends Component {
           <View style={styles.resultContainer}>
             <View style={ styles.row }>
               <View style={ styles.round } ><Text>{ place }</Text></View>
-              <Image source={require('../../assets/images/man.png')} style={ styles.avatar } />
+              <Image source={ playerNameToAvatarImageSource(player.name) } style={ styles.avatar } />
               <Text>{ player.name }</Text>
             </View>
-            <Text>{ player.rank }</Text>
+            <Text>{ round(player.rank) }</Text>
           </View>
       </View>
     )

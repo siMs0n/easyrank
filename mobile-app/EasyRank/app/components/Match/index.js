@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import moment from 'moment';
+import {playerNameToAvatarImageSource} from "../../models/players";
 
 export default class Match extends Component {
   render() {
@@ -17,12 +18,13 @@ export default class Match extends Component {
     } else {
       formattedTime = createdAtMoment.format('MMM Do YYYY')
     }
+
     return (
       <View style={styles.container}>
         <Text style={styles.time}>{formattedTime}</Text>
         <View style={styles.resultContainer}>
           <View style={styles.playerContainer}>
-            <Image source={require('../../assets/images/man.png')} style={styles.playerImage}/>
+            <Image source={playerNameToAvatarImageSource(match.winner.player.name)} style={styles.playerImage}/>
             <Text style={styles.playerName}>{match.winner.player.name}</Text>
           </View>
           <Text style={styles.score}>{match.winner.score}</Text>
@@ -31,7 +33,7 @@ export default class Match extends Component {
           </View>
           <Text style={styles.score}>{match.loser.score}</Text>
           <View style={styles.playerContainer}>
-            <Image source={require('../../assets/images/man.png')} style={styles.playerImage}/>
+            <Image source={playerNameToAvatarImageSource(match.loser.player.name)} style={styles.playerImage}/>
             <Text style={styles.playerName}>{match.loser.player.name}</Text>
           </View>
         </View>

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
-const man = require('../../assets/images/man.png');
+import {playerNameToAvatarImageSource} from "../../models/players";
+import {round} from 'lodash';
 
 export default class LeaderboardPodium extends Component {
   render() {
@@ -18,14 +19,14 @@ export default class LeaderboardPodium extends Component {
     return (
       <View style={ styles.container }>
         <View style={ styles.container }>
-          <Image source={ man } style={styles[style]}/>
+          <Image source={ playerNameToAvatarImageSource(player.name) } style={styles[style]}/>
           <View style={styles['round-place']}>
             <Text style={ styles.white }>{number}</Text>
           </View>
         </View>
         <View>
           <Text style={ styles.white }>{ player.name }</Text>
-          <Text style={ styles.white }>{ player.rank }</Text>
+          <Text style={ styles.white }>{ round(player.rank) }</Text>
         </View>
       </View>
     )
