@@ -1,12 +1,20 @@
 import React from 'react';
-import {TabNavigator} from 'react-navigation';
+import {TabNavigator, StackNavigator} from 'react-navigation';
 import Feed from './screens/Feed';
 import Leaderboard from './screens/Leaderboard';
+import CreateMatch from './screens/CreateMatch';
+import {Image} from 'react-native';
 import { NavigationComponent } from 'react-native-material-bottom-navigation'
 import {getMatches, getPlayers, postMatch} from "./backendService";
 
 const AppNavigation = TabNavigator({
-  Feed: { screen: Feed },
+  TabItem1: {
+    screen: StackNavigator({Feed: { screen: Feed }, CreateMatch: { screen: CreateMatch}}),
+    navigationOptions: {
+      tabBarLabel: 'Feed',
+      tabBarIcon: () => <Image source={require('./assets/images/menu.png')} style={ {width: 24, height: 24} } />
+    }
+  },
   Leaderboard: { screen: Leaderboard }
 }, {
   tabBarComponent: NavigationComponent,
@@ -16,7 +24,7 @@ const AppNavigation = TabNavigator({
       labelColor: 'white',
       rippleColor: 'white',
       tabs: {
-        Feed: {
+        TabItem1: {
           barBackgroundColor: '#03A9F4'
         },
         Leaderboard: {
