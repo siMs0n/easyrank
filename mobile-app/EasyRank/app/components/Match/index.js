@@ -71,23 +71,26 @@ const styles = StyleSheet.create({
   playerName: {
     fontSize: 16,
     textAlign: 'center',
-    marginTop: 8
+    marginTop: 8,
+    color: 'rgba(0,0,0,0.87)'
   },
   pingPongImageContainer: {
     alignItems: 'center'
   },
   pingPongImage: {
-    height: 80,
-    width: 80,
+    height: 40,
+    width: 40,
     marginVertical: 4
   },
   scoreContainer: {
     alignSelf: 'stretch',
   },
   score: {
-    fontSize: 30,
+    fontSize: 35,
     textAlign: 'center',
-    margin: 10
+    margin: 10,
+    width: 45,
+    color: 'rgba(0,0,0,0.87)'
   },
   time: {
     position: 'absolute',

@@ -6,7 +6,9 @@ import ActionButton from 'react-native-action-button';
 
 export default class Feed extends Component {
   static navigationOptions = {
-    title: 'Feed'
+    title: 'Feed',
+    headerStyle: {backgroundColor: '#03A9F4'},
+    headerTitleStyle: {color: 'white', fontSize: 24}
   };
 
   constructor(props){
@@ -24,7 +26,7 @@ export default class Feed extends Component {
           data={sortedMatches}
           renderItem={({item}) => <Match key={item._id} match={item} />}
         />
-        <ActionButton buttonColor="#00E676" onPress={() => this.props.navigation.navigate('CreateMatch')}>
+        <ActionButton buttonColor="#00E676" onPress={() => this.props.navigation.navigate('CreateMatch')} degrees={0}>
           <Text style={ styles.plus }>+</Text>
         </ActionButton>
       </View>
