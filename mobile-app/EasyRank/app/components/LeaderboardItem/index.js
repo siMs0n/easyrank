@@ -11,7 +11,7 @@ export default class LeaderboardItem extends Component {
         <View style={styles.container}>
           <View style={styles.resultContainer}>
             <View style={ styles.row }>
-              <View style={ styles.round } ><Text>{ place }</Text></View>
+              <View style={ styles.place } ><Text>{ place }</Text></View>
               <Image source={ playerNameToAvatarImageSource(player.name) } style={ styles.avatar } />
               <Text>{ player.name }</Text>
             </View>
@@ -29,13 +29,8 @@ const styles = StyleSheet.create({
   },
   row: {
     display: 'flex',
-    flexDirection: 'row'
-  },
-  divider: {
-    width: '100%',
-    height: 1,
-    marginHorizontal: 16,
-    backgroundColor: '#999'
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   resultContainer: {
     alignSelf: 'stretch',
@@ -43,17 +38,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 32,
-    marginTop: 8,
     marginBottom: 16
   },
-  round: {
-    borderRadius: 50,
-    height: 25,
-    width: 25
+  place: {
+    width: 32
   },
   avatar: {
-    height: 25,
-    width: 25,
-    marginRight: 16
+    height: 40,
+    width: 40,
+    marginRight: 24
   }
 });

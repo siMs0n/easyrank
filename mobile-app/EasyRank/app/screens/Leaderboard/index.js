@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {orderBy, take, slice} from 'lodash';
+import {orderBy, take, slice, range} from 'lodash';
 import {StyleSheet, Text, View, Image, FlatList} from 'react-native';
 import LeaderboardPodium from '../../components/LeaderboardPodium';
 import LinearGradient from 'react-native-linear-gradient';
@@ -15,9 +15,10 @@ export default class Leaderboard extends Component {
   render() {
     const players = orderBy(this.props.screenProps.players, 'rank', 'desc');
     const podiumPlayers = take(players, 3);
+    const test = slice(players, 3);
 
     return (
-      <View>
+      <View style={ styles.container }>
         <LinearGradient colors={['#5794D5', '#596FB2', '#537CC3']} style={styles.titleBar}>
           <Text style={styles.welcome}>
             Leaderboard
@@ -29,6 +30,7 @@ export default class Leaderboard extends Component {
           </View>
         </LinearGradient>
         <FlatList
+          style={ styles.list }
           data={ slice(players, 3) }
           renderItem={({item, index}) => <LeaderboardItem key={item._id} player={ item } place={ index + 4 } />}
         />
@@ -38,12 +40,14 @@ export default class Leaderboard extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
   titleBar: {
     paddingVertical: 10,
     elevation: 1,
     display: 'flex',
-    alignItems: 'center',
-    marginBottom: 16
+    alignItems: 'center'
   },
   welcome: {
     color: '#FFFFFF',
@@ -60,5 +64,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around'
+  },
+  list: {
+    paddingTop: 12
   }
 });
