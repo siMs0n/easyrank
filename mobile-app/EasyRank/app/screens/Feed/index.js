@@ -20,11 +20,13 @@ export default class Feed extends Component {
     const matches = this.props.screenProps.matches;
     const sortedMatches = _.orderBy(matches, 'createdAt', 'desc');
 
+    const openPlayerPage = (player) => this.props.navigation.navigate('Player', {player: player});
+
     return (
       <View style={ styles.container }>
         <FlatList
           data={sortedMatches}
-          renderItem={({item}) => <Match key={item._id} match={item} />}
+          renderItem={({item}) => <Match key={item._id} match={item} openPlayerPage={ openPlayerPage } />}
         />
         <ActionButton buttonColor="#00E676" onPress={() => this.props.navigation.navigate('CreateMatch')} degrees={0}>
           <Text style={ styles.plus }>+</Text>

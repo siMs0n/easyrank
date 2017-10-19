@@ -3,19 +3,26 @@ import {TabNavigator, StackNavigator} from 'react-navigation';
 import Feed from './screens/Feed';
 import Leaderboard from './screens/Leaderboard';
 import CreateMatch from './screens/CreateMatch';
+import Player from './screens/Player';
 import {Image} from 'react-native';
 import { NavigationComponent } from 'react-native-material-bottom-navigation'
 import {getMatches, getPlayers, postMatch} from "./backendService";
 
 const AppNavigation = TabNavigator({
   TabItem1: {
-    screen: StackNavigator({Feed: { screen: Feed }, CreateMatch: { screen: CreateMatch}}),
+    screen: StackNavigator({Feed: { screen: Feed }, CreateMatch: { screen: CreateMatch}, Player: { screen: Player}}),
     navigationOptions: {
       tabBarLabel: 'Feed',
       tabBarIcon: () => <Image source={require('./assets/images/menu.png')} style={ {width: 24, height: 24} } />
     }
   },
-  Leaderboard: { screen: Leaderboard }
+  TabItem2: {
+    screen: StackNavigator({Leaderboard: { screen: Leaderboard }, Player: { screen: Player}}),
+    navigationOptions: {
+      tabBarLabel: 'Leaderboard',
+      tabBarIcon: () => <Image source={ require('./assets/images/podium.png') }  style={ {width: 24, height: 24} } />
+    }
+  }
 }, {
   tabBarComponent: NavigationComponent,
   tabBarPosition: 'bottom',
@@ -27,7 +34,7 @@ const AppNavigation = TabNavigator({
         TabItem1: {
           barBackgroundColor: '#03A9F4'
         },
-        Leaderboard: {
+        TabItem2: {
           barBackgroundColor: '#03A9F4'
         }
       }

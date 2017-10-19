@@ -4,12 +4,11 @@ import {StyleSheet, Text, View, Image, FlatList, ScrollView} from 'react-native'
 import LeaderboardPodium from '../../components/LeaderboardPodium';
 import LinearGradient from 'react-native-linear-gradient';
 import LeaderboardItem from '../../components/LeaderboardItem/index';
-const podiumImg = require('../../assets/images/podium.png');
 
 export default class Leaderboard extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Leaderboard',
-    tabBarIcon: () => <Image source={ podiumImg } style={ styles.tabIcon } />
+    title: 'Leaderboard',
+    header: null
   };
 
   render() {
@@ -55,7 +54,7 @@ export default class Leaderboard extends Component {
   }
 }
 
-function hasPlayedAMatch(player, matches) {
+export function hasPlayedAMatch(player, matches) {
   return some(matches, (match) => {
     return match.winner.player._id === player._id || match.loser.player._id === player._id;
   })

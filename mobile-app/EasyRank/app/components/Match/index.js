@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import moment from 'moment';
 import {playerNameToAvatarImageSource} from "../../models/players";
 
 export default class Match extends Component {
   render() {
-    const { match } = this.props;
+    const { match, openPlayerPage } = this.props;
     const now = moment();
     const createdAtMoment = moment(match.createdAt);
     let formattedTime = "";
@@ -23,19 +23,23 @@ export default class Match extends Component {
       <View style={styles.container}>
         <Text style={styles.time}>{formattedTime}</Text>
         <View style={styles.resultContainer}>
-          <View style={styles.playerContainer}>
-            <Image source={playerNameToAvatarImageSource(match.winner.player.name)} style={styles.playerImage}/>
-            <Text style={styles.playerName}>{match.winner.player.name}</Text>
-          </View>
+          <TouchableOpacity onPress={ () => openPlayerPage(match.winner.player) }>
+            <View style={styles.playerContainer}>
+              <Image source={playerNameToAvatarImageSource(match.winner.player.name)} style={styles.playerImage}/>
+              <Text style={styles.playerName}>{match.winner.player.name}</Text>
+            </View>
+          </TouchableOpacity>
           <Text style={styles.score}>{match.winner.score}</Text>
           <View style={styles.pingPongImageContainer}>
             <Image source={require('../../assets/images/ping-pong.png')} style={styles.pingPongImage}/>
           </View>
           <Text style={styles.score}>{match.loser.score}</Text>
-          <View style={styles.playerContainer}>
-            <Image source={playerNameToAvatarImageSource(match.loser.player.name)} style={styles.playerImage}/>
-            <Text style={styles.playerName}>{match.loser.player.name}</Text>
-          </View>
+          <TouchableOpacity onPress={ () => openPlayerPage(match.loser.player) }>
+            <View style={styles.playerContainer}>
+              <Image source={playerNameToAvatarImageSource(match.loser.player.name)} style={styles.playerImage}/>
+              <Text style={styles.playerName}>{match.loser.player.name}</Text>
+            </View>
+          </TouchableOpacity>
         </View>
         <View style={styles.divider}/>
       </View>
