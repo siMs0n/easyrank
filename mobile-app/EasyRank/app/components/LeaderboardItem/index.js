@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {playerNameToAvatarImageSource} from "../../models/players";
-import {round} from 'lodash';
+import {round, get} from 'lodash';
 
 export default class LeaderboardItem extends Component {
   render() {
-    const { player, place } = this.props;
+    const player = this.props.player;
+    const place = get(this, 'props.place', '');
 
     return (
         <View style={styles.container}>

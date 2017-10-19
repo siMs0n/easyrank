@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {orderBy, take, slice, range} from 'lodash';
-import {StyleSheet, Text, View, Image, FlatList} from 'react-native';
+import {orderBy, take, slice, some, filter, reject} from 'lodash';
+import {StyleSheet, Text, View, Image, FlatList, ScrollView} from 'react-native';
 import LeaderboardPodium from '../../components/LeaderboardPodium';
 import LinearGradient from 'react-native-linear-gradient';
 import LeaderboardItem from '../../components/LeaderboardItem/index';
@@ -14,8 +14,11 @@ export default class Leaderboard extends Component {
 
   render() {
     const players = orderBy(this.props.screenProps.players, 'rank', 'desc');
-    const podiumPlayers = take(players, 3);
-    const test = slice(players, 3);
+    const matches = this.props.screenProps.matches;
+    const activePlayers = filter(players, p => hasPlayedAMatch(p, matches));
+    const passivePlayers = reject(players,  p => hasPlayedAMatch(p, matches));
+    const hasPassivePlayers = passivePlayers.length > 0;
+    const podiumPlayers = activePlayers.length >= 3 ? take(activePlayers, 3) : take(players, 3);
 
     return (
       <View style={ styles.container }>
@@ -29,14 +32,33 @@ export default class Leaderboard extends Component {
             { podiumPlayers[2] ? <LeaderboardPodium third player={ podiumPlayers[2] } /> : null }
           </View>
         </LinearGradient>
+        <ScrollView>
         <FlatList
           style={ styles.list }
-          data={ slice(players, 3) }
+          data={ hasPassivePlayers ? slice(activePlayers, 3) : slice(players, 3) }
           renderItem={({item, index}) => <LeaderboardItem key={item._id} player={ item } place={ index + 4 } />}
         />
+        {hasPassivePlayers ? (
+          <View>
+            <View style={styles.divider}/>
+            <Text style={ styles.subheading }>Players who haven't played yet</Text>
+            <FlatList
+              style={ styles.list }
+              data={ passivePlayers }
+              renderItem={({item, index}) => <LeaderboardItem key={item._id} player={ item } />}
+            />
+          </View>
+        ) : null}
+        </ScrollView>
       </View>
     )
   }
+}
+
+function hasPlayedAMatch(player, matches) {
+  return some(matches, (match) => {
+    return match.winner.player._id === player._id || match.loser.player._id === player._id;
+  })
 }
 
 const styles = StyleSheet.create({
@@ -67,5 +89,14 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingTop: 12
+  },
+  subheading: {
+    marginTop: 8,
+    marginLeft: 16
+  },
+  divider: {
+    height: 1,
+    marginHorizontal: 16,
+    backgroundColor: '#999'
   }
 });
